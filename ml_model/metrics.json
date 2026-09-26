@@ -1,0 +1,22 @@
+{
+  "dataset_size": 90,
+  "train_samples": 67,
+  "test_samples": 23,
+  "accuracy": 95.65,
+  "precision": 92.31,
+  "recall": 100.0,
+  "f1_score": 96.0,
+  "confusion_matrix": [
+    [
+      10,
+      1
+    ],
+    [
+      0,
+      12
+    ]
+  ],
+  "model_type": "TF-IDF + Calibrated Logistic Regression",
+  "vocabulary_size": 1508,
+  "status": "TRAINED"
+}

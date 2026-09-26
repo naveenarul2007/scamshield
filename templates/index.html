@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScamShield – Premium Digital Scam Detection</title>
+  <meta name="description" content="AI-powered cybersecurity protection against fraudulent SMS, URLs, and screenshots.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-brand" data-view-target="dashboard">
+        <i data-lucide="shield-check" class="brand-icon"></i>
+        <span class="brand-name">SCAMSHIELD</span>
+      </div>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <ul class="nav-menu sidebar">
+        <li><a class="nav-link active" data-view-target="dashboard">Dashboard</a></li>
+        <li class="nav-dropdown">
+          <a class="nav-link" style="cursor: pointer;">Scan <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 4px;"></i></a>
+          <div class="dropdown-content">
+            <a class="nav-link" data-view-target="message"><i data-lucide="message-square"></i> Message</a>
+            <a class="nav-link" data-view-target="url"><i data-lucide="link"></i> URL</a>
+            <a class="nav-link" data-view-target="screenshot"><i data-lucide="image"></i> Screenshot</a>
+          </div>
+        </li>
+        <li><a class="nav-link" data-view-target="history">History</a></li>
+        <li><a class="nav-link" data-view-target="reports">Reports</a></li>
+        <li><a class="nav-link" data-view-target="about">About</a></li>
+      </ul>
+      
+      <div class="navbar-cta">
+        <button class="btn-primary" data-view-target="message">
+          <i data-lucide="search"></i> Scan Now
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-viewport">
+    
+    <!-- DASHBOARD VIEW -->
+    <section class="view-section active-view" id="view-dashboard">
+      <!-- Premium Hero -->
+      <div class="hero-section">
+        <div class="hero-content">
+          <div class="hero-tag">ENTERPRISE-GRADE PROTECTION</div>
+          <h1>Detect scams before they detect you.</h1>
+          <p>Analyze suspicious messages, links and screenshots and understand exactly why they may be dangerous.</p>
+          <div class="hero-buttons">
+            <button class="btn-primary btn-large" data-view-target="message">
+              <i data-lucide="search"></i> Scan Now
+            </button>
+            <button class="btn-secondary btn-large" data-view-target="about">
+              How It Works
+            </button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="preview-card">
+            <div class="preview-header">SECURITY ANALYSIS</div>
+            <div class="preview-body">
+              <div class="preview-score-box">
+                <span class="score-val">87</span>
+                <span class="score-max">/ 100</span>
+              </div>
+              <div class="preview-risk risk-high">🔴 LIKELY SCAM</div>
+              <div class="preview-subtitle">HIGH RISK</div>
+              <ul class="preview-factors">
+                <li><i data-lucide="alert-triangle"></i> Urgent language</li>
+                <li><i data-lucide="alert-triangle"></i> Financial request</li>
+                <li><i data-lucide="alert-triangle"></i> Suspicious URL</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works -->
+      <div class="how-it-works-section">
+        <h2 class="section-title text-center">How ScamShield Works</h2>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01 &mdash; Paste</div>
+            <p>Paste suspicious content from SMS, WhatsApp, or emails.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02 &mdash; Analyze</div>
+            <p>ScamShield analyzes warning indicators in real-time.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03 &mdash; Protect</div>
+            <p>Understand the risk and take safer action immediately.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Stats -->
+      <div class="dashboard-header">
+        <div>
+          <h2>Welcome to ScamShield</h2>
+          <p class="subtitle">Your digital safety command center.</p>
+        </div>
+        <div class="status-badge" id="mlModelBadge">
+          Active: Rule-based Explainable Engine
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">TOTAL SCANS (DEMO)</div>
+          <div class="stat-value" id="statTotalScans">0</div>
+        </div>
+        <div class="stat-card safe">
+          <div class="stat-title">SAFE (DEMO)</div>
+          <div class="stat-value" id="statSafeScans">0</div>
+        </div>
+        <div class="stat-card suspicious">
+          <div class="stat-title">SUSPICIOUS (DEMO)</div>
+          <div class="stat-value" id="statSuspiciousScans">0</div>
+        </div>
+        <div class="stat-card scam">
+          <div class="stat-title">SCAMS DETECTED (DEMO)</div>
+          <div class="stat-value" id="statScamScans">0</div>
+        </div>
+      </div>
+
+      <!-- Quick Scan Focus -->
+      <div class="quick-scan-focus">
+        <h3 class="focus-title">What would you like to check?</h3>
+        <div class="focus-grid">
+          <div class="focus-card" data-view-target="message">
+            <i data-lucide="message-square" class="focus-icon"></i>
+            <h4>Message Scanner</h4>
+            <p>Analyze suspicious text</p>
+            <button class="btn-outline">Scan Message</button>
+          </div>
+          <div class="focus-card" data-view-target="url">
+            <i data-lucide="link" class="focus-icon"></i>
+            <h4>URL Scanner</h4>
+            <p>Check a suspicious link</p>
+            <button class="btn-outline">Scan URL</button>
+          </div>
+          <div class="focus-card" data-view-target="screenshot">
+            <i data-lucide="image" class="focus-icon"></i>
+            <h4>Screenshot Scanner</h4>
+            <p>Upload and analyze a screenshot</p>
+            <button class="btn-outline">Upload Screenshot</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Area -->
+      <div class="charts-section">
+        <h3 class="section-title">Analytics Overview (Demo Data)</h3>
+        <div class="charts-grid">
+          <div class="chart-box">
+            <canvas id="chartClassification"></canvas>
+          </div>
+          <div class="chart-box">
+            <canvas id="chartCategories"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recent Scans (Hidden intentionally for clean SaaS look, but keeping ID for JS) -->
+      <table style="display:none;"><tbody id="recentScansTableBody"></tbody></table>
+
+    </section>
+
+    <!-- MESSAGE SCANNER VIEW -->
+    <section class="view-section" id="view-message">
+      <div class="scanner-container">
+        <div class="scanner-header">
+          <h2>Message Scanner</h2>
+          <p>Paste a suspicious message and we'll explain the warning signs.</p>
+        </div>
+        
+        <div class="scanner-layout">
+          <div class="scanner-input-area">
+            <form id="messageScanForm">
+              <div class="input-card">
+                <textarea id="messageInput" class="premium-textarea" placeholder="Paste the suspicious message here..."></textarea>
+                <div class="input-footer">
+                  <span id="messageCharCount">0 characters (0 words)</span>
+                </div>
+              </div>
+              <button type="submit" class="btn-primary btn-block" id="btnAnalyzeMessage">
+                <i data-lucide="search"></i> Analyze Message
+              </button>
+            </form>
+            
+            <div class="demo-chips">
+              <span class="demo-title">Try a Demo:</span>
+              <button type="button" class="chip" data-fill-message="URGENT: 6-digit OTP is required to cancel unauthorized debit of ₹49,999 from your HDFC account. Provide OTP to our executive immediately to prevent loss.">Banking Scam</button>
+              <button type="button" class="chip" data-fill-message="Congratulations! You won ₹50,000. Click this link immediately to claim your prize.">Prize Scam</button>
+              <button type="button" class="chip" data-fill-message="Work from home! Earn 5000 per day by liking youtube videos. Reply YES to start.">Job Scam</button>
+              <button type="button" class="chip" data-fill-message="Your appointment with the college office is confirmed for tomorrow at 10 AM.">Safe Message</button>
+            </div>
+          </div>
+          
+          <div class="scanner-results-area" id="messageResultsPanel" style="display:none;">
+            <!-- JS Inject -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- URL SCANNER VIEW -->
+    <section class="view-section" id="view-url">
+      <div class="scanner-container">
+        <div class="scanner-header">
+          <h2>Check a suspicious link</h2>
+          <p>Analyze links for typosquatting, deceptive mimicry, and structural threats.</p>
+        </div>
+        
+        <div class="scanner-layout">
+          <div class="scanner-input-area">
+            <form id="urlScanForm">
+              <div class="input-card">
+                <input type="text" id="urlInput" class="premium-input" placeholder="https://example.com">
+              </div>
+              <button type="submit" class="btn-primary btn-block" id="btnAnalyzeUrl">
+                <i data-lucide="search"></i> Check URL
+              </button>
+            </form>
+            
+            <div class="demo-chips">
+              <span class="demo-title">Try a Demo:</span>
+              <button type="button" class="chip" data-fill-url="http://sbi-pan-update.top/verify-login?id=82910">Phishing Portal</button>
+              <button type="button" class="chip" data-fill-url="http://paypa1-account-resolution.xyz/login">Typosquatting</button>
+              <button type="button" class="chip" data-fill-url="https://google.com">Safe Domain</button>
+            </div>
+          </div>
+          
+          <div class="scanner-results-area" id="urlResultsPanel" style="display:none;">
+            <!-- JS Inject -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENSHOT SCANNER VIEW -->
+    <section class="view-section" id="view-screenshot">
+      <div class="scanner-container">
+        <div class="scanner-header">
+          <h2>Screenshot Scanner</h2>
+          <p>Upload a suspicious message screenshot and let ScamShield analyze it.</p>
+        </div>
+        
+        <div class="scanner-layout">
+          <div class="scanner-input-area">
+            <form id="screenshotScanForm">
+              <div class="premium-dropzone" id="screenshotDropzone">
+                <i data-lucide="image" class="dropzone-icon"></i>
+                <div class="dropzone-text">DROP SCREENSHOT HERE</div>
+                <div class="dropzone-subtext">or click to choose image</div>
+                <div class="dropzone-formats">Supported: PNG • JPG • JPEG</div>
+                <input type="file" id="screenshotFileInput" accept="image/png, image/jpeg, image/jpg, image/webp" class="file-hidden">
+              </div>
+              
+              <div class="preview-box" id="screenshotPreviewContainer" style="display:none;">
+                <img src="" id="screenshotPreviewImg" alt="Preview">
+                <div class="preview-info">
+                  <div id="screenshotPreviewFilename" class="filename">file.png</div>
+                  <div id="screenshotPreviewSize" class="filesize">100 KB</div>
+                </div>
+                <button type="button" class="btn-icon" id="btnRemoveScreenshot"><i data-lucide="x"></i></button>
+              </div>
+
+              <div class="demo-chips" style="margin-top:20px;">
+                <span class="demo-title">Test Samples:</span>
+                <button type="button" class="chip" data-sample-screenshot="sample_scam_banking.png">SBI KYC Scam</button>
+                <button type="button" class="chip" data-sample-screenshot="sample_scam_lottery.png">Lottery Scam</button>
+                <button type="button" class="chip" data-sample-screenshot="sample_safe_meeting.png">Safe Meeting</button>
+              </div>
+              
+              <button type="submit" class="btn-primary btn-block" id="btnAnalyzeScreenshot" style="margin-top:20px;">
+                <i data-lucide="search"></i> Analyze Screenshot
+              </button>
+            </form>
+          </div>
+          
+          <div class="scanner-results-area" id="screenshotResultsPanel" style="display:none;">
+            <!-- JS Inject -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY VIEW -->
+    <section class="view-section" id="view-history">
+      <div class="page-header">
+        <h2>Scan History</h2>
+        <p>Your previous analysis records.</p>
+      </div>
+      
+      <div class="history-controls">
+        <select id="historyTypeFilter" class="premium-select">
+          <option value="all">All Types</option>
+          <option value="message">Messages</option>
+          <option value="url">URLs</option>
+          <option value="screenshot">Screenshots</option>
+        </select>
+        <select id="historyRiskFilter" class="premium-select">
+          <option value="all">All Risks</option>
+          <option value="low">Safe</option>
+          <option value="medium">Suspicious</option>
+          <option value="high">Likely Scam</option>
+        </select>
+        <button class="btn-outline text-red" id="btnClearHistory">Clear History</button>
+      </div>
+
+      <div class="premium-table-container">
+        <table class="premium-table">
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>TYPE</th>
+              <th>PREVIEW</th>
+              <th>RISK SCORE</th>
+              <th>RESULT</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- JS Inject -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- REPORTS VIEW -->
+    <section class="view-section" id="view-reports">
+      <div class="page-header">
+        <h2>Report a Scam</h2>
+        <p>Help improve digital safety by reporting suspicious content.</p>
+      </div>
+      
+      <div class="reports-layout">
+        <div class="report-form-card">
+          <form id="reportScamForm">
+            <div class="form-group">
+              <label>Scam Category</label>
+              <select id="reportCategory" class="premium-select" required>
+                <option value="">Select category...</option>
+                <option value="Banking">Banking</option>
+                <option value="OTP">OTP</option>
+                <option value="Job Scam">Job Scam</option>
+                <option value="Investment Scam">Investment Scam</option>
+                <option value="Prize Scam">Prize Scam</option>
+                <option value="Phishing">Phishing</option>
+                <option value="Fake Customer Support">Fake Customer Support</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="reportDescription" class="premium-textarea" placeholder="Details about the scam..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Optional URL</label>
+              <input type="text" id="reportUrl" class="premium-input" placeholder="http://...">
+            </div>
+            <div class="form-group">
+              <label>Specific Mechanism</label>
+              <input type="text" id="reportScamType" class="premium-input" placeholder="e.g. Telegram task">
+            </div>
+            <button type="submit" class="btn-primary btn-block">Submit Report</button>
+          </form>
+        </div>
+        <div class="report-community">
+          <h3>Community Reports</h3>
+          <div id="reportsListContainer">
+            <!-- JS Inject -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT VIEW -->
+    <section class="view-section" id="view-about">
+      <div class="page-header">
+        <h2>About ScamShield</h2>
+        <p>Enterprise-grade digital safety.</p>
+      </div>
+      
+      <div class="about-card">
+        <h3>The Problem</h3>
+        <p>Digital scams have exploded in scale and sophistication. Cybercriminals exploit urgent psychological triggers to deceive victims.</p>
+        
+        <h3>Our Solution</h3>
+        <p>ScamShield provides an instant, unified cyber-defense platform prioritizing <strong>Explainable AI</strong> to provide transparent risk breakdowns.</p>
+        
+        <h3>How It Works</h3>
+        <div class="flow-diagram">
+          <div class="flow-node">MESSAGE / URL / SCREENSHOT</div>
+          <i data-lucide="arrow-down" class="flow-arrow"></i>
+          <div class="flow-node">ANALYSIS</div>
+          <i data-lucide="arrow-down" class="flow-arrow"></i>
+          <div class="flow-node">RISK DETECTION</div>
+          <i data-lucide="arrow-down" class="flow-arrow"></i>
+          <div class="flow-node">EXPLANATION</div>
+          <i data-lucide="arrow-down" class="flow-arrow"></i>
+          <div class="flow-node final">SAFER DECISION</div>
+        </div>
+        
+        <h3>Technology</h3>
+        <ul class="tech-list">
+          <li>Python / Flask</li>
+          <li>Machine Learning (scikit-learn)</li>
+          <li>NLP & Heuristics</li>
+          <li>OCR (Tesseract)</li>
+          <li>JavaScript</li>
+          <li>Supabase / PostgreSQL</li>
+        </ul>
+        
+        <div class="alert alert-warning">
+          <strong>Limitations:</strong> ScamShield is an assistance tool and cannot guarantee that content is safe or malicious.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Details Modal -->
+  <div class="modal" id="detailsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Scan Details</h3>
+        <button class="btn-icon" onclick="closeModal()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  
+  <script src="/static/js/app.js"></script>
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+    
+    // Add loading overlay functionality to app.js
+    window.originalSetButtonLoading = window.setButtonLoading;
+    window.setButtonLoading = function(btn, isLoading, text) {
+      if(isLoading) {
+        btn.disabled = true;
+        btn.innerHTML = `<i data-lucide="loader" class="spin"></i> ${text}`;
+        lucide.createIcons();
+        
+        // Find adjacent results panel
+        const panel = btn.closest('.scanner-layout').querySelector('.scanner-results-area');
+        if(panel) {
+          panel.style.display = 'block';
+          panel.innerHTML = `
+            <div class="loading-state">
+              <h3>Analyzing...</h3>
+              <div class="loading-step"><i data-lucide="check-circle" class="text-green"></i> Checking language patterns</div>
+              <div class="loading-step"><i data-lucide="check-circle" class="text-green"></i> Checking suspicious requests</div>
+              <div class="loading-step"><i data-lucide="check-circle" class="text-green"></i> Checking links</div>
+              <div class="loading-step active"><i data-lucide="loader" class="spin"></i> Calculating risk</div>
+            </div>
+          `;
+          lucide.createIcons();
+        }
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="search"></i> ${text}`;
+        lucide.createIcons();
+      }
+    };
+
+    // Override renderScanResults to match new premium design
+    const oldRender = window.renderScanResults;
+    window.renderScanResults = function(panelId, result, scanType = 'message') {
+      const panel = document.getElementById(panelId);
+      if (!panel) return;
+
+      const score = result.risk_score || 0;
+      const classification = result.classification || 'SAFE';
+      const riskLevel = result.risk_level || 'LOW';
+      const indicators = result.indicators || [];
+      const factors = result.factors || [];
+      const recommendation = result.recommendation || '';
+      
+      let themeClass = 'safe';
+      let icon = 'check-circle';
+      if(score >= 60) { themeClass = 'high'; icon = 'alert-triangle'; }
+      else if(score >= 30) { themeClass = 'medium'; icon = 'alert-circle'; }
+
+      let factorHtml = factors.map(f => `
+        <div class="risk-factor-card">
+          <div class="rfc-left">
+            <i data-lucide="alert-triangle" class="text-warning"></i>
+            <div>
+              <strong>${f.factor}</strong>
+              <div class="rfc-reason">${f.reason}</div>
+            </div>
+          </div>
+          <div class="rfc-score">+${f.points}</div>
+        </div>
+      `).join('');
+
+      let recHtml = `
+        <div class="recommendation-card">
+          <div class="rec-header">
+            <i data-lucide="shield"></i> Recommended Action
+          </div>
+          <div class="rec-body">
+            "Do not click suspicious links or provide OTPs, passwords, PINs or banking information. Verify the request through the organization's official website or app."
+            <br><br>
+            <strong>Specific advice:</strong> ${recommendation}
+          </div>
+          <div class="rec-actions">
+             <button class="btn-outline" onclick="copyResultText(${score}, '${classification}', '${escapeQuotes(recommendation)}')">Copy Result</button>
+             <button class="btn-primary" onclick="document.getElementById('${panelId}').style.display='none'">Scan Another</button>
+          </div>
+        </div>
+      `;
+
+      panel.innerHTML = `
+        <div class="result-header">Analysis Complete</div>
+        <div class="result-score-container ${themeClass}">
+          <div class="circular-score">${score}<span class="max">/100</span></div>
+          <div class="result-class"><i data-lucide="${icon}"></i> ${classification.toUpperCase()}</div>
+          <div class="result-level">${riskLevel.toUpperCase()} RISK</div>
+        </div>
+        
+        <div class="factors-section">
+          <h4>Why was this flagged?</h4>
+          ${factorHtml || '<p class="text-muted">No significant risk factors detected.</p>'}
+        </div>
+        
+        ${recHtml}
+      `;
+    };
+
+    // Completely disable toast notifications and OCR modals for a clean demo
+    window.showToast = function() {};
+    window.showOcrMissingModal = function() {};
+  </script>
+</body>
+</html>

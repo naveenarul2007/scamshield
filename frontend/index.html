@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScamShield – Real-Time Digital Scam Detection & Protection Platform | ALGOTHON’26</title>
+  <meta name="description" content="AI-powered cybersecurity protection against fraudulent SMS, WhatsApp phishing, malicious URLs, and suspicious screenshot messages.">
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js for Cybersecurity Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand-wrapper" data-view-target="dashboard">
+          <div class="brand-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div class="brand-title">
+            <span>ScamShield</span>
+            <span class="brand-tag">ALGOTHON’26 EDITION</span>
+          </div>
+        </a>
+      </div>
+
+      <ul class="nav-menu">
+        <div class="nav-label">Core Platform</div>
+        <li class="nav-item">
+          <a class="nav-link active" data-view-target="dashboard">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+            Dashboard
+          </a>
+        </li>
+
+        <div class="nav-label">Detection Engines</div>
+        <li class="nav-item">
+          <a class="nav-link" data-view-target="message">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+            Message Scanner
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-view-target="url">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+            URL Scanner
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-view-target="screenshot">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            Screenshot Scanner
+          </a>
+        </li>
+
+        <div class="nav-label">Management & Intelligence</div>
+        <li class="nav-item">
+          <a class="nav-link" data-view-target="history">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Scan History
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-view-target="reports">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            Reports
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-view-target="about">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            About
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-status-box">
+          <div class="status-indicator">
+            <div class="pulse-dot"></div>
+            <span>Hybrid Engine Active</span>
+          </div>
+          <div class="status-meta" id="sidebarStatusMeta">ML Engine & OCR Ready</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <!-- Top Header Navigation Bar -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          <span class="hackathon-badge">
+            <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            ALGOTHON’26 Official Submission
+          </span>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-demo-tour" id="btnDemoTour" title="Quickly test with hackathon jury test cases">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span>Jury Demo Showcase</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Viewports Container -->
+      <div class="page-viewport">
+        <!-- Security Banner Notice -->
+        <div class="security-banner">
+          <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+          <span><strong>Safety Rule:</strong> Never enter passwords, OTPs, PINs, or confidential banking credentials into ScamShield or unverified links.</span>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW 1: DASHBOARD / LANDING                    -->
+        <!-- ============================================== -->
+        <section class="view-section active-view" id="view-dashboard">
+          <!-- Hero Section -->
+          <div class="hero-card">
+            <div class="hero-subtitle-tag">Real-Time Threat Intelligence</div>
+            <h1>Detect scams before they detect you.</h1>
+            <p>AI-powered protection against suspicious messages, phishing attempts, and malicious links. Analyze suspicious content in seconds and understand exactly why it may be dangerous.</p>
+            <div class="hero-btn-group">
+              <button class="btn-primary" data-view-target="message">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                Scan Now
+              </button>
+              <button class="btn-secondary" data-view-target="about">
+                How It Works
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Scan Capabilities Grid -->
+          <div class="quick-scan-grid">
+            <div class="scan-card" data-view-target="message">
+              <div class="card-icon-box icon-blue">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+              </div>
+              <h3>Message Scanner</h3>
+              <p>Analyze SMS, WhatsApp, and email messages for urgency, threats, financial requests, and OTP theft.</p>
+              <span class="card-action-link">Open Scanner &rarr;</span>
+            </div>
+
+            <div class="scan-card" data-view-target="url">
+              <div class="card-icon-box icon-indigo">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+              </div>
+              <h3>URL Scanner</h3>
+              <p>Deep heuristic analysis of domains, typosquatting, suspicious TLDs, IP hosts, and URL shortening tricks.</p>
+              <span class="card-action-link">Scan Link &rarr;</span>
+            </div>
+
+            <div class="scan-card" data-view-target="screenshot">
+              <div class="card-icon-box icon-cyan">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              </div>
+              <h3>Screenshot Scanner</h3>
+              <p>Extract suspicious text from screenshots using OCR and run immediate threat classification.</p>
+              <span class="card-action-link">Upload Screenshot &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Live Model Status Banner -->
+          <div style="background:#FFFFFF; border:1px solid var(--border-light); border-radius:var(--radius-md); padding:12px 18px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div id="mlModelBadge" style="font-size:0.86rem; color:var(--text-main);">
+              <strong>Active Model:</strong> TF-IDF + Calibrated Logistic Regression (95.65% Acc)
+            </div>
+            <div style="font-size:0.78rem; color:var(--text-muted); background:var(--bg-subtle); padding:4px 10px; border-radius:var(--radius-full);">
+              Hybrid: ML Probability + Weighted Explainable Rules
+            </div>
+          </div>
+
+          <!-- Stats Counters -->
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-icon icon-blue">
+                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statTotalScans">0</div>
+                <div class="stat-label">Total Scans</div>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-icon" style="background:#ECFDF5; color:#059669;">
+                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statSafeScans">0</div>
+                <div class="stat-label">Safe Scans</div>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-icon" style="background:#FFFBEB; color:#D97706;">
+                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statSuspiciousScans">0</div>
+                <div class="stat-label">Suspicious</div>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-icon" style="background:#FEF2F2; color:#DC2626;">
+                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-number" id="statScamScans">0</div>
+                <div class="stat-label">Scam Detections</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Analytics Charts -->
+          <div class="charts-grid">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Risk Classification Breakdown</h3>
+                <span class="chart-badge">Live History Data</span>
+              </div>
+              <div class="chart-canvas-container">
+                <canvas id="chartClassification"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Scam Category Distribution</h3>
+                <span class="chart-badge">Threat Intelligence</span>
+              </div>
+              <div class="chart-canvas-container">
+                <canvas id="chartCategories"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Scans Preview -->
+          <div class="section-header" style="margin-top: 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <h2 style="font-size:1.2rem; font-weight:700;">Recent Scans</h2>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Real-time stream of incoming scam analysis</p>
+              </div>
+              <button class="btn-pill" data-view-target="history">View All History &rarr;</button>
+            </div>
+          </div>
+          <div class="data-table-card">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Type</th>
+                  <th>Input Preview</th>
+                  <th>Score</th>
+                  <th>Classification</th>
+                </tr>
+              </thead>
+              <tbody id="recentScansTableBody">
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading recent scans...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: MESSAGE SCANNER                        -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-message">
+          <div class="section-header">
+            <h1>Message Scanner</h1>
+            <p>Paste suspicious SMS, WhatsApp, or email content to detect threat language, credential harvesting, or urgency tactics.</p>
+          </div>
+
+          <div class="scanner-workspace">
+            <!-- Input Panel -->
+            <div class="scanner-panel">
+              <div class="preset-pills-bar">
+                <span class="pill-label">Try Demo Messages:</span>
+                <button type="button" class="btn-pill" data-fill-message="Congratulations! You won ₹50,000. Click this link immediately to claim your prize.">Test 1: Prize Scam</button>
+                <button type="button" class="btn-pill" data-fill-message="Your account will be suspended today. Verify your identity using this link.">Test 2: Account Block Threat</button>
+                <button type="button" class="btn-pill" data-fill-message="Your appointment with the college office is confirmed for tomorrow at 10 AM.">Test 3: Safe Campus Notice</button>
+                <button type="button" class="btn-pill" data-fill-message="URGENT: 6-digit OTP is required to cancel unauthorized debit of ₹49,999 from your HDFC account. Provide OTP to our executive immediately to prevent loss.">Test 4: OTP Theft</button>
+              </div>
+
+              <form id="messageScanForm">
+                <div class="form-group">
+                  <label class="form-label" for="messageInput">Paste the suspicious message below:</label>
+                  <textarea id="messageInput" class="form-textarea" placeholder="Paste the message content here... e.g., 'Your bank account will be blocked today. Verify your account immediately using this link.'"></textarea>
+                  <div class="textarea-footer">
+                    <span id="messageCharCount">0 characters (0 words)</span>
+                    <span>Explainable Rule Engine + TF-IDF ML</span>
+                  </div>
+                </div>
+                <button type="submit" class="btn-submit-scan" id="btnAnalyzeMessage">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                  ANALYZE MESSAGE
+                </button>
+              </form>
+            </div>
+
+            <!-- Results Panel -->
+            <div>
+              <div class="results-panel" id="messageResultsPanel">
+                <!-- Dynamically populated by JS renderScanResults -->
+              </div>
+              <div class="scanner-panel empty-results-state" id="messageEmptyState">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:6px;">Ready for Analysis</h3>
+                <p style="font-size:0.85rem;">Paste any SMS or message on the left or select a demo test case to see the real-time explainable risk breakdown.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 3: URL SCANNER                            -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-url">
+          <div class="section-header">
+            <h1>URL Scanner</h1>
+            <p>Analyze suspicious links for typosquatting, unencrypted HTTP, DGA entropy, URL shorteners, and deceptive brand mimicry.</p>
+          </div>
+
+          <div class="scanner-workspace">
+            <!-- Input Panel -->
+            <div class="scanner-panel">
+              <div class="preset-pills-bar">
+                <span class="pill-label">Try Demo URLs:</span>
+                <button type="button" class="btn-pill" data-fill-url="http://sbi-pan-update.top/verify-login?id=82910">Phishing Portal (.top)</button>
+                <button type="button" class="btn-pill" data-fill-url="http://paypa1-account-resolution.xyz/login">Typosquatting (paypa1)</button>
+                <button type="button" class="btn-pill" data-fill-url="http://192.168.1.50/paypal-security-check">Direct IP Host</button>
+                <button type="button" class="btn-pill" data-fill-url="https://google.com">Legitimate Domain</button>
+              </div>
+
+              <form id="urlScanForm">
+                <div class="form-group">
+                  <label class="form-label" for="urlInput">Enter suspicious URL:</label>
+                  <input type="text" id="urlInput" class="form-input" placeholder="https://example-security-update.xyz/login">
+                  <div class="textarea-footer">
+                    <span>Heuristic structural evaluation & reputation indicators</span>
+                  </div>
+                </div>
+                <button type="submit" class="btn-submit-scan" id="btnAnalyzeUrl">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                  SCAN URL
+                </button>
+              </form>
+
+              <div style="margin-top:20px; font-size:0.78rem; color:var(--text-muted); line-height:1.4;">
+                <em>Notice: URL analysis uses structural heuristics (protocol, domain entropy, brand impersonation, and TLD scoring). ScamShield never directly visits or executes untrusted links.</em>
+              </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div>
+              <div class="results-panel" id="urlResultsPanel">
+                <!-- Dynamically populated -->
+              </div>
+              <div class="scanner-panel empty-results-state" id="urlEmptyState">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+                <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:6px;">Ready for URL Scanning</h3>
+                <p style="font-size:0.85rem;">Enter a link or choose a demo URL to inspect protocol security, TLD risk, and typosquatting.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 4: SCREENSHOT SCANNER                     -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-screenshot">
+          <div class="section-header">
+            <h1>Screenshot Scanner</h1>
+            <p>Upload screenshot images (SMS alerts, WhatsApp chats, or payment prompts) to extract text via OCR and analyze scam indicators.</p>
+          </div>
+
+          <div class="scanner-workspace">
+            <!-- Upload Panel -->
+            <div class="scanner-panel">
+              <form id="screenshotScanForm">
+                <div class="dropzone" id="screenshotDropzone">
+                  <svg class="dropzone-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                  <div class="dropzone-title">Drag & drop screenshot here, or click to browse</div>
+                  <div class="dropzone-sub">Supports PNG, JPG, JPEG, WEBP (Max 10MB)</div>
+                  <input type="file" id="screenshotFileInput" accept="image/png, image/jpeg, image/jpg, image/webp">
+                </div>
+
+                <div class="preview-container" id="screenshotPreviewContainer">
+                  <img src="" id="screenshotPreviewImg" class="preview-img" alt="Screenshot preview">
+                  <div class="preview-meta">
+                    <div class="preview-filename" id="screenshotPreviewFilename">screenshot.png</div>
+                    <div class="preview-size" id="screenshotPreviewSize">120 KB</div>
+                  </div>
+                  <button type="button" class="btn-remove-preview" id="btnRemoveScreenshot" title="Remove image">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                  </button>
+                </div>
+
+                <!-- Sample Presets for Judges -->
+                <div style="margin-bottom:20px;">
+                  <span class="pill-label">Or Test With Built-in Sample Screenshots:</span>
+                  <div class="sample-presets-grid">
+                    <button type="button" class="sample-preset-btn" data-sample-screenshot="sample_scam_banking.png">
+                      <span class="badge-pill badge-scam">SCAM SMS</span>
+                      <span class="title">SBI KYC Expiry Alert</span>
+                    </button>
+                    <button type="button" class="sample-preset-btn" data-sample-screenshot="sample_scam_lottery.png">
+                      <span class="badge-pill badge-scam">PRIZE SCAM</span>
+                      <span class="title">KBC ₹50,000 Winner</span>
+                    </button>
+                    <button type="button" class="sample-preset-btn" data-sample-screenshot="sample_safe_meeting.png">
+                      <span class="badge-pill badge-safe">SAFE</span>
+                      <span class="title">Campus Appointment</span>
+                    </button>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-submit-scan" id="btnAnalyzeScreenshot">
+                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                  ANALYZE SCREENSHOT
+                </button>
+              </form>
+            </div>
+
+            <!-- Results Panel -->
+            <div>
+              <div class="results-panel" id="screenshotResultsPanel">
+                <!-- Dynamically populated -->
+              </div>
+              <div class="scanner-panel empty-results-state" id="screenshotEmptyState">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:6px;">OCR Pipeline Ready</h3>
+                <p style="font-size:0.85rem;">Upload an image or pick a built-in demo sample to see optical character extraction and scam analysis in action.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 5: SCAN HISTORY                           -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-history">
+          <div class="section-header">
+            <h1>Scan History</h1>
+            <p>Comprehensive audit log of recent message, link, and screenshot scans with privacy-safe input previews.</p>
+          </div>
+
+          <div class="history-controls">
+            <div class="filter-group">
+              <select id="historyTypeFilter" class="custom-select">
+                <option value="all">All Scan Types</option>
+                <option value="message">Messages</option>
+                <option value="url">URLs</option>
+                <option value="screenshot">Screenshots</option>
+              </select>
+              <select id="historyRiskFilter" class="custom-select">
+                <option value="all">All Risk Levels</option>
+                <option value="low">Safe (Low)</option>
+                <option value="medium">Suspicious (Medium)</option>
+                <option value="high">Likely Scam (High)</option>
+              </select>
+            </div>
+            <button class="btn-danger-outline" id="btnClearHistory">
+              Clear All History
+            </button>
+          </div>
+
+          <div class="data-table-card">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Type</th>
+                  <th>Input Content Preview</th>
+                  <th>Score</th>
+                  <th>Classification</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 32px;">Loading scan records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 6: REPORTS ("REPORT SCAM")               -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-reports">
+          <div class="section-header">
+            <h1>Report Suspicious Content</h1>
+            <p>Help protect the community. Submit confirmed or suspicious scams to enrich the threat detection database.</p>
+          </div>
+
+          <div class="report-grid">
+            <!-- Submission Form -->
+            <div class="scanner-panel">
+              <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:14px;">Report This Scam</h3>
+              <form id="reportScamForm">
+                <div class="form-group">
+                  <label class="form-label" for="reportCategory">Scam Category *</label>
+                  <select id="reportCategory" class="form-input" required>
+                    <option value="">Select a category...</option>
+                    <option value="Banking">Banking & Financial Impersonation</option>
+                    <option value="OTP">OTP & Credential Theft</option>
+                    <option value="Job Scam">Fake Job / Work From Home Scam</option>
+                    <option value="Investment Scam">Crypto / Guaranteed Profit Scam</option>
+                    <option value="Prize Scam">Lottery, Prize & Lucky Draw</option>
+                    <option value="Phishing">Phishing Link / Credential Harvest</option>
+                    <option value="Fake Customer Support">Fake Customer Support / AnyDesk</option>
+                    <option value="Other">Other Suspicious Activity</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="reportDescription">Description of Scam *</label>
+                  <textarea id="reportDescription" class="form-textarea" style="min-height:100px;" placeholder="Provide details: what did the message claim, what number/email sent it, what action did they request?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="reportUrl">Suspicious URL (Optional)</label>
+                  <input type="text" id="reportUrl" class="form-input" placeholder="e.g. http://sbi-pan-update.top">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="reportScamType">Specific Scam Mechanism (Optional)</label>
+                  <input type="text" id="reportScamType" class="form-input" placeholder="e.g. Telegram hotel rating task, Electricity bill cut threat">
+                </div>
+
+                <button type="submit" class="btn-submit-scan">
+                  Submit Scam Report
+                </button>
+              </form>
+
+              <div style="margin-top:16px; font-size:0.78rem; color:var(--text-muted); line-height:1.4;">
+                <em>Disclaimer: Reports are user-submitted community indicators and undergo automated and crowd-sourced verification before influencing detection weights.</em>
+              </div>
+            </div>
+
+            <!-- Community Feed -->
+            <div>
+              <div class="section-subhead">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                Community Threat Reports
+              </div>
+              <div id="reportsListContainer">
+                <div style="text-align:center; padding:24px; color:var(--text-muted);">Loading community reports...</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 7: ABOUT PAGE                             -->
+        <!-- ============================================== -->
+        <section class="view-section" id="view-about">
+          <div class="section-header">
+            <h1>About ScamShield</h1>
+            <p>Project documentation, architecture, and technology stack built for ALGOTHON’26.</p>
+          </div>
+
+          <div class="scanner-panel" style="margin-bottom:24px;">
+            <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary); margin-bottom:10px;">The Problem</h3>
+            <p style="color:var(--text-muted); line-height:1.6; margin-bottom:18px;">
+              Digital scams have exploded in scale and sophistication across India and globally. Cybercriminals exploit urgent psychological triggers—threats of blocked bank accounts, electric power cuts, fake lottery prizes, and deceptive work-from-home tasks. Ordinary citizens and elderly users struggle to distinguish legitimate bank notifications from malicious phishing vectors.
+            </p>
+
+            <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary); margin-bottom:10px;">The Solution</h3>
+            <p style="color:var(--text-muted); line-height:1.6; margin-bottom:18px;">
+              ScamShield provides an instant, unified cyber-defense platform capable of analyzing SMS, WhatsApp messages, emails, URLs, and uploaded screenshots. Unlike opaque black-box checkers, ScamShield prioritizes <strong>Explainable AI</strong>—providing clear, transparent risk point breakdowns so users learn exactly which indicators (urgency, OTP requests, suspicious TLDs, typosquatting) triggered the alert.
+            </p>
+
+            <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary); margin-bottom:10px;">Technology Stack</h3>
+            <ul style="padding-left:20px; color:var(--text-main); font-size:0.9rem; line-height:1.8; margin-bottom:20px;">
+              <li><strong>Backend Engine:</strong> Python, Flask REST API with structured JSON responses</li>
+              <li><strong>Machine Learning:</strong> scikit-learn (TF-IDF N-Gram Vectorizer + Calibrated Logistic Regression, 95.65% Accuracy, 100% Recall on scam test set)</li>
+              <li><strong>Heuristic Rules Engine:</strong> Configurable weighted scoring engine evaluating 12 distinct threat vectors</li>
+              <li><strong>OCR Pipeline:</strong> Tesseract OCR integration with graceful fallback for sample datasets</li>
+              <li><strong>Database Layer:</strong> SQLite / PostgreSQL / Supabase ready via SQLAlchemy</li>
+              <li><strong>Frontend:</strong> Clean Vanilla JavaScript, Semantic HTML5, Custom Cybersecurity Design System, Chart.js</li>
+            </ul>
+
+            <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:var(--radius-md); padding:16px;">
+              <h4 style="color:#92400E; font-size:0.9rem; font-weight:700; margin-bottom:4px;">Important System Limitation & Disclaimer</h4>
+              <p style="color:#78350F; font-size:0.85rem; line-height:1.5;">
+                ScamShield is an assistive decision-support tool designed to highlight risk indicators. It cannot guarantee that any content is 100% safe or malicious. Users must always verify transactions through official bank channels, apps, or in-person verification.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scan Details / Showcase Modal -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Scan Details</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Main Application Script -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
