@@ -4,7 +4,12 @@ import sqlite3
 from datetime import datetime, timezone
 
 DB_DIR = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_SQLITE_PATH = os.path.join(DB_DIR, "scamshield.db")
+
+# Vercel's serverless environment has a read-only filesystem except for /tmp
+if os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV"):
+    DEFAULT_SQLITE_PATH = "/tmp/scamshield.db"
+else:
+    DEFAULT_SQLITE_PATH = os.path.join(DB_DIR, "scamshield.db")
 
 def get_db_connection():
     db_path = os.getenv("SQLITE_PATH", DEFAULT_SQLITE_PATH)

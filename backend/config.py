@@ -12,7 +12,11 @@ class Config:
     PORT = int(os.getenv("PORT", "5001"))
     
     # Upload settings
-    UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
+    if os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV"):
+        UPLOAD_FOLDER = "/tmp/uploads"
+    else:
+        UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
+        
     MAX_CONTENT_LENGTH = 10 * 1024 * 1024  # 10 MB
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
     
@@ -21,4 +25,7 @@ class Config:
     SUPABASE_URL = os.getenv("SUPABASE_URL", "")
     SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
 
-os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
+try:
+    os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
+except Exception:
+    pass
